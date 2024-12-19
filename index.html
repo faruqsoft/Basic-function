@@ -201,6 +201,7 @@ Function arguments are the real values passed to (and received by) the function.
 </script>
 -->
 
+<!--
 <h2>The Rest Parameter</h2>
 <p>The rest parameter (...) allows a function to treat an indefinite number of arguments as an array:</p>
 <p id="demo"></p>
@@ -217,5 +218,344 @@ Function arguments are the real values passed to (and received by) the function.
     //arg represents each number in the array.
 
 </script>
+-->
+
+<!--
+//JavaScript Function Invocation
+
+<p>The global function (myFunction) returns the product of the arguments (a ,b):</p>
+<p id="demo"></p>
+<script>
+    function myFunction(a, b) {
+        return a * b;
+    }
+    document.getElementById("demo").innerHTML = myFunction(10, 2);
+</script>
+-->
+<!--
+<p>Global functions automatically become window methods. Invoking myFunction() is the same as invoking window.myFunction().</p>
+<p id="demo"></p>
+<script>
+    function myFunction(a, b) {
+        return a * b;
+    }
+    document.getElementById("demo").innerHTML = window.myFunction(10, 2);
+</script>
+-->
+<!--
+<p>In HTML the value of <b>this</b>, in a global function, is the window object.</p>
+<p id="demo"></p>
+<script>
+    let x = myFunction();
+    function myFunction() {
+        return this;
+    }
+    document.getElementById("demo").innerHTML = x;
+</script>
+//Invoking a function as a global function, causes the value of this to be the global object.
+//Using the window object as a variable can easily crash your program
+-->
+
+<!--
+
+<p>myObject.fullName() will return John Doe:</p>
+<p id="demo"></p>
+<script>
+    const myObject = {
+        firstName:"John",
+        lastName: "Doe",
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    document.getElementById("demo").innerHTML = myObject.fullName();
+</script>
+-->
+
+<!--
+<p>The value of <b>this</b>, in an object method, is the owner object.</p>
+<p id="demo"></p>
+<script>
+    const myObject = {
+        firstName:"John",
+        lastName: "Doe",
+        fullName: function() {
+            return this;
+        }
+    }
+    document.getElementById("demo").innerHTML = myObject.fullName();
+    //Invoking a function as an object method, causes the value of this to be the object itself.
+</script>
+-->
+<!--
+<p>In this example, myFunction is a function constructor:</p>
+<p id="demo"></p>
+<script>
+function myFunction(arg1, arg2) {
+  this.firstName = arg1;
+  this.lastName  = arg2;
+}
+
+const myObj = new myFunction("John","Doe")
+document.getElementById("demo").innerHTML = myObj.firstName;
+</script>
+
+-->
+//JavaScript Function call()
+
+<!--
+<p>This example calls the fullName method of person, using it on person1:
+</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    const person1 = {
+        firstName:"John",
+        lastName: "Doe"
+    }
+    const person2 = {
+        firstName:"Mary",
+        lastName: "Doe"
+    }
+    document.getElementById("demo").innerHTML = person.fullName.call(person1);
+</script>
+-->
+<!--
+<p>This example calls the fullName method of person, using it on person1:
+</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        fullName: function(city, country) {
+            return this.firstName + " " + this.lastName + "," + city + "," + country;
+        }
+    }
+
+    const person1 = {
+        firstName:"John",
+        lastName: "Doe"
+    }
+
+    const person2 = {
+        firstName:"Mary",
+        lastName: "Doe"
+    }
+
+    document.getElementById("demo").innerHTML = person.fullName.call(person1, "Oslo", "Norway");
+</script>
+-->
+//JavaScript Function apply()
+<!--
+<p>In this example the fulllName method of person is <b>applied</b> on person1:</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+
+    const person1 = {
+        firstName:"John",
+        lastName: "Doe"
+    }
+
+    document.getElementById("demo").innerHTML = person.fullName.apply(person1);
+    //The call() method takes arguments separately.
+    //The apply() method takes arguments as an array.
+</script>
+-->
+
+
+<!--
+<p>In this example the fulllName method of person is <b>applied</b> on person1:</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        fullName: function(city, country) {
+            return this.firstName + " " + this.lastName + "," + city + "," + country;
+        }
+    }
+
+    const person1 = {
+        firstName:"John",
+        lastName: "Doe"
+    }
+
+    document.getElementById("demo").innerHTML = person.fullName.apply(person1, ["Oslo", "Norway"]);
+</script>
+-->
+<!--
+//You can find the largest number (in a list of numbers) using the Math.max() method:
+<p>This example returns the highest number in a list of number arguments:</p>
+<p id="demo"></p>
+<script>
+    document.getElementById("demo").innerHTML = Math.max(1,2,3);
+</script>
+-->
+
+//JavaScript Function bind()
+<!--
+<p>This example creates 2 objects (person and member).</p>
+<p>The member object borrows the fullname method from person:</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        firstName:"John",
+        lastName: "Doe",
+        fullName: function() {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+
+    const member = {
+        firstName:"Hege",
+        lastName: "Nilsen",
+    }
+
+    let fullName = person.fullName.bind(member);
+
+    document.getElementById("demo").innerHTML = fullName();
+</script>
+-->
+
+<!--
+<p>In this example, the person object has a display method:</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        firstName:"John",
+        lastName: "Doe",
+        display: function() {
+            let x = document.getElementById("demo");
+            x.innerHTML = this.firstName + " " + this.lastName;
+        }
+    }
+
+    person.display();
+</script>
+-->
+
+<!--
+<p>This example will display a person name after 3 seconds:</p>
+<p id="demo"></p>
+<script>
+    const person = {
+        firstName:"John",
+        lastName: "Doe",
+        display: function() {
+            let x = document.getElementById("demo");
+            x.innerHTML = this.firstName + " " + this.lastName;
+        }
+    }
+
+    let display = person.display.bind(person);
+    setTimeout(display, 3000);
+</script>
+-->
+//JavaScript Closures
+<!--
+<p>A function can access variables defined inside the function:</p>
+<p id="demo"></p>
+<script>
+    myFunction();
+
+    function myFunction() {
+        let a = 4;
+        document.getElementById("demo").innerHTML = a * a;
+    }
+</script>
+-->
+<!--
+<p>A function can access variables defined outside the function:</p>
+<p id="demo"></p>
+<script>
+    let a = 4;
+    myFunction();
+
+    function myFunction() {
+        document.getElementById("demo").innerHTML = a * a;
+    }
+</script>
+-->
+
+<!--
+<p>Variables created without a declaration keyword (var, let, or const) are always global,
+    even if they are created inside a function.:</p>
+<p id="demo"></p>
+<script>
+    myFunction();
+    document.getElementById("demo").innerHTML = a * a;
+
+    function myFunction() {
+        a = 4;
+    }
+</script>
+-->
+<!--
+<p>Counting with a global variable.</p>
+<p id="demo"></p>
+<script>
+    // Initiate counter
+    let counter = 0;
+
+    // Function to increment counter
+    function add() {
+        counter += 1;
+    }
+
+    // Call add() 3 times
+    add();
+    add();
+    add();
+
+    // The counter should now be 3
+    document.getElementById("demo").innerHTML = "The counter is: " + counter;
+</script>
+-->
+
+<!--
+<p>Counting with a global variable.</p>
+<p id="demo"></p>
+<script>
+    // Initiate counter
+    let counter = 0;
+
+    // Function to increment counter
+    function add() {
+        counter += 1;
+    }
+
+    // Call add() 3 times
+    add();
+    add();
+    add();
+
+    // The counter should now be 3
+    document.getElementById("demo").innerHTML = "The counter is: " + counter;
+    //It did not work because we display the global counter instead of the local counter.
+</script>
+-->
+
+<!--
+<p>Counting with a local variable.</p>
+<button type="button" onclick="myFunction()">Count!</button>
+<p id="demo">0</p>
+
+<script>
+    const add = (function () {
+        let counter = 0;
+        return function () {counter += 1; return counter;}
+    })();
+
+    function myFunction(){
+        document.getElementById("demo").innerHTML = add();
+    }
+</script>
+-->
 </body>
 </html>
